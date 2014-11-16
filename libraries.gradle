@@ -1,0 +1,3 @@
+libraries = [
+	groovy = ['org.codehaus.groovy:groovy-all:2.3.7']
+]

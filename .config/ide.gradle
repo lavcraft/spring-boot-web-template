@@ -1,0 +1,46 @@
+idea {
+    project {
+        languageLevel = sourceCompatibility
+        ipr {
+            withXml { provider ->
+                provider.node.component.find { it.@name == 'VcsDirectoryMappings' }.mapping.@vcs = 'Git'
+                def maxHeapSizeConfig =  provider.node.component.find { it.@name == 'JavacSettings' }
+                if( maxHeapSizeConfig == null ){
+                    def javacSettingsNode =  provider.node.appendNode('component',[name: 'JavacSettings'])
+                    javacSettingsNode.appendNode('option', [name:"MAXIMUM_HEAP_SIZE", value:"512"])
+                }
+            }
+
+            beforeMerged { project ->
+                project.modulePaths.clear()
+            }
+        }
+    }
+
+    module {
+//        name = "work & play exporter"
+        excludeDirs += file('.gradle')
+        excludeDirs += file('.idea')
+        iml {
+            beforeMerged { module ->
+                module.dependencies.clear()
+                module.excludeFolders.clear()
+            }
+            whenMerged { module ->
+                module.dependencies*.exported = true
+                module.excludeFolders += module.pathFactory.path(file(".gradle"))
+                module.excludeFolders += module.pathFactory.path(file(".idea"))
+                module.excludeFolders += module.pathFactory.path(file("$buildDir/bundles"))
+                module.excludeFolders += module.pathFactory.path(file("$buildDir/classes"))
+                module.excludeFolders += module.pathFactory.path(file("$buildDir/dependency-cache"))
+                module.excludeFolders += module.pathFactory.path(file("$buildDir/libs"))
+                module.excludeFolders += module.pathFactory.path(file("$buildDir/reports"))
+                module.excludeFolders += module.pathFactory.path(file("$buildDir/test-results"))
+                module.excludeFolders += module.pathFactory.path(file("$buildDir/tmp"))
+                module.excludeFolders += module.pathFactory.path(file("$buildDir/matrix"))
+                module.excludeFolders += module.pathFactory.path(file("$buildDir/resources"))
+                module.excludeFolders -= module.pathFactory.path(file("$buildDir"))
+            }
+        }
+    }
+}
