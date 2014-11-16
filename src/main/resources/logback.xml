@@ -2,7 +2,7 @@
 <configuration>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d TUTUT [ %t ] %-55logger{13} | %m %n</pattern>
+            <pattern>%d [ %t ] %-55logger{13} | %m %n</pattern>
         </encoder>
     </appender>
 
