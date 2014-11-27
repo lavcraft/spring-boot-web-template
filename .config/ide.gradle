@@ -18,7 +18,9 @@ idea {
     }
 
     module {
-//        name = "work & play exporter"
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+        name = "spring-boot-web-example"
         excludeDirs += file('.gradle')
         excludeDirs += file('.idea')
         iml {

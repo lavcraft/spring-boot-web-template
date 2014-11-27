@@ -1,28 +1,18 @@
+buildscript { apply from: '.config/buildscript.gradle', to: buildscript }
 apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'spring-boot'
-
 apply from: '.config/ide.gradle'
 apply from: '.config/libraries.gradle'
 
 sourceCompatibility = 1.8
 version = '1.0'
 
-buildscript {
-    repositories {
-        mavenLocal()
-        maven { url "http://repo.spring.io/libs-release" }
-        jcenter()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE")
-    }
-}
 
 repositories {
     mavenLocal()
 
-        jcenter()
+    jcenter()
     repositories {
         maven { url "http://repo.spring.io/libs-release" }
         mavenLocal()
